@@ -22,3 +22,10 @@ The trade-off: the function is line-aware but otherwise character-blind. It does
 ## Exported names
 
 - `expand_tabs(text, tab_width=8) -> str` — expands `\t` characters in `text` using minimum-width column advancement with the given positive integer `tab_width`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
